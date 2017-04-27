@@ -5,8 +5,8 @@ import java.util.StringTokenizer;
  * Created by benco on 4/27/2017.
  */
 public class GridClass {
-    private int mRows = 1;// # of rows, starts at 1 for counting purposes
-    private int mCols = 1;// # of cols, starts at 1 for counting purposes
+    private int mRows = 0;// # of rows, starts at 1 for counting purposes
+    private int mCols = 0;// # of cols, starts at 1 for counting purposes
     //private int [] mFreeRows;// # of unassigned points in each row
     //private int [] mFreeCols;// # of unassigned points in each col
     private int mCurrentMaxRows;//stores the decrementing maximum number of available rows
@@ -38,6 +38,9 @@ public class GridClass {
         mCurrentMaxRows = mRows;
         //end finding number of rows and columns
         mGrid = new PointClass[mRows][mCols];
+        for(int i =0; i<mRows; i++)
+            for(int j=0; j<mCols; j++)
+                mGrid[i][j] = new PointClass();
         /*
         //initialize free rows and columns
         mFreeRows = new int [mRows];
