@@ -24,13 +24,13 @@ public class GridClass {
         String temp;
         temp = input.readLine();
         StringTokenizer tokens = new StringTokenizer(temp);
-        while(tokens !=null){
+        while(tokens.hasMoreTokens()){
             String x = tokens.nextToken();
             mRows++;
         }
         temp = input.readLine();
         tokens = new StringTokenizer(temp);
-        while(tokens !=null){
+        while(tokens.hasMoreTokens()){
             String x = tokens.nextToken();
             mCols++;
         }
@@ -50,16 +50,20 @@ public class GridClass {
         */
 
         //inputting given data into row and column specific arrays
+        mGivenRows = new int [mRows];
+        mGivenCols = new int [mCols];
         BufferedReader input2 = new BufferedReader(new FileReader("data.txt"));
         temp = input2.readLine();
-        tokens =  new StringTokenizer(temp);
+        StringTokenizer tokens2 =  new StringTokenizer(temp);
         for(int i = 0; i< mRows; i++){
-            mGivenRows[i] = Integer.parseInt(tokens.nextToken());
+            String y = tokens2.nextToken();
+            mGivenRows[i] = Integer.parseInt(y);
         }
         temp = input2.readLine();
-        tokens =  new StringTokenizer(temp);
+        tokens2 =  new StringTokenizer(temp);
         for(int i = 0; i< mCols; i++){
-            mGivenCols[i] = Integer.parseInt(tokens.nextToken());
+            String y =tokens2.nextToken();
+            mGivenCols[i] = Integer.parseInt(y);
         }
         //end inputting given data into row and column arrays
 
@@ -86,7 +90,7 @@ public class GridClass {
     public void fillCol(int colNum, boolean pressed){
         for(int i=0; i<mRows; i++){
             if(!mGrid[i][colNum].isDone())
-            mGrid[i][colNum].assign(pressed);
+                mGrid[i][colNum].assign(pressed);
 
         }
     }
@@ -108,19 +112,24 @@ public class GridClass {
     //finds all rows and columnds with the current decremention max and assigns as pressed
     public void findAndFillMaximums(){
         for(int i=0; i<mRows; i++){
-            if(mGivenRows[i]==mCurrentMaxCols){
+            if(mGivenRows[i]==mCurrentMaxCols&&mCurrentMaxCols!=0){
                 fillRow(i,true);
                 mCurrentMaxRows--;
             }
         }
         for(int i=0; i<mCols; i++){
-            if(mGivenCols[i]==mCurrentMaxRows){
+            if(mGivenCols[i]==mCurrentMaxRows&&mCurrentMaxRows!=0){
                 fillCol(i,true);
                 mCurrentMaxCols--;
             }
         }
     }
+    //runs fillrows and fillcol methods until complete graph is made
+    public void runFills(){
+        findAndFillZeros();
+        while(mCurrentMaxCols!=0&&mCurrentMaxRows!=0)
+            findAndFillMaximums();
 
-
+    }
 
 }
