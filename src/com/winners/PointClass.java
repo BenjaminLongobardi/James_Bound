@@ -20,4 +20,7 @@ public class PointClass {
             mPressedOrNot = 'o';
         mDone = true;
     }
+    public boolean isDone(){
+        return mDone;
+    }
 }
